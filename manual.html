@@ -376,13 +376,20 @@
             overflow: hidden;
             border: 1px solid var(--border-light);
             box-shadow: 0 16px 36px rgba(0, 0, 0, 0.7);
-            background: #000;
+            background: #050811;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-height: 520px;
         }
 
         .diagram-img {
-            width: 100%;
-            height: auto;
+            max-width: 100% !important;
+            height: auto !important;
+            max-height: 500px !important;
+            object-fit: contain;
             display: block;
+            margin: 0 auto;
         }
 
         /* FAQ Section */
