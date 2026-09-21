@@ -1,243 +1,658 @@
 <!DOCTYPE html>
-<html lang="es" class="dark">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manual Visual de Instalación · Quantum Trading Fleet (XAUUSD)</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            900: '#070b14',
-                            800: '#0b1120',
-                            700: '#0f172a',
-                            600: '#1e293b',
-                            emerald: '#10b981',
-                            cyan: '#38bdf8',
-                            amber: '#f59e0b',
-                            purple: '#a855f7'
-                        }
-                    },
-                    fontFamily: {
-                        mono: ['JetBrains Mono', 'monospace'],
-                        sans: ['Inter', 'sans-serif']
-                    }
-                }
-            }
-        }
-    </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+        /* 100% Self-Contained Zero-Dependency Modern Dark CSS */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg-base: #070a13;
+            --bg-surface: #0e1424;
+            --bg-card: #141d33;
+            --bg-card-hover: #1a2540;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-light: rgba(255, 255, 255, 0.15);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --accent-emerald: #10b981;
+            --accent-emerald-glow: rgba(16, 185, 129, 0.2);
+            --accent-cyan: #06b6d4;
+            --accent-cyan-glow: rgba(6, 182, 212, 0.2);
+            --accent-amber: #f59e0b;
+            --accent-purple: #8b5cf6;
+            --radius-xl: 24px;
+            --radius-lg: 16px;
+            --radius-md: 10px;
+            --radius-sm: 6px;
+            --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --font-mono: "JetBrains Mono", "SF Mono", Consolas, "Courier New", monospace;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            font-family: var(--font-main);
+            min-height: 100vh;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* Header Navbar */
+        .top-nav {
+            background: rgba(14, 20, 36, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--accent-emerald), var(--accent-cyan));
+            color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 20px;
+            font-family: var(--font-mono);
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+        }
+
+        .brand-text h1 {
+            font-size: 17px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -0.3px;
+        }
+
+        .brand-text h1 span {
+            color: var(--accent-emerald);
+        }
+
+        .brand-text p {
+            font-size: 10px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            font-family: var(--font-mono);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-link {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            padding: 8px 14px;
+            border-radius: var(--radius-md);
+            transition: all 0.2s;
+        }
+
+        .btn-link:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .btn-cta-nav {
+            background: var(--accent-emerald);
+            color: #000;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 9px 16px;
+            border-radius: var(--radius-md);
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.25);
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-cta-nav:hover {
+            background: #34d399;
+            transform: translateY(-1px);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 48px 24px 80px;
+        }
+
+        /* Hero Header */
+        .hero-section {
+            text-align: center;
+            margin-bottom: 56px;
+        }
+
+        .hero-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 999px;
+            color: var(--accent-emerald);
+            font-size: 11px;
+            font-weight: 700;
+            font-family: var(--font-mono);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 18px;
+        }
+
+        .hero-title {
+            font-size: 40px;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: -1px;
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, var(--accent-emerald), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-desc {
+            font-size: 16px;
+            color: var(--text-secondary);
+            max-width: 680px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Step Cards */
+        .step-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            padding: 36px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            transition: border-color 0.2s;
+        }
+
+        .step-card:hover {
+            border-color: var(--border-light);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+            margin-bottom: 24px;
+        }
+
+        .step-badge-group {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .step-number {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 900;
+            color: #000;
+            font-family: var(--font-mono);
+        }
+
+        .step-title h2 {
+            font-size: 22px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -0.3px;
+        }
+
+        .step-title p {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .time-badge {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 700;
+            font-family: var(--font-mono);
+            color: var(--text-secondary);
+        }
+
+        .step-body {
+            margin-bottom: 28px;
+        }
+
+        .step-body p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .code-callout {
+            background: #000;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 16px 20px;
+            font-family: var(--font-mono);
+            font-size: 15px;
+            color: var(--accent-cyan);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+        }
+
+        .code-callout span {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* 2-Column Info Grid for Step 2 */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .info-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 18px 20px;
+        }
+
+        .info-card h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .info-card p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* Checklist for Step 3 */
+        .checklist {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .checklist li {
+            font-size: 14px;
+            color: var(--text-secondary);
+            padding: 8px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .check-icon {
+            color: var(--accent-emerald);
+            font-weight: 800;
+            font-size: 15px;
+        }
+
+        .console-output {
+            background: #000;
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            border-radius: var(--radius-md);
+            padding: 18px 22px;
+            font-family: var(--font-mono);
+            font-size: 13px;
+            color: #34d399;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        /* Step Diagram Image */
+        .diagram-wrapper {
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid var(--border-light);
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.7);
+            background: #000;
+        }
+
+        .diagram-img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+
+        .faq-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 24px;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .faq-item h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+
+        .faq-item p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Bottom CTA Banner */
+        .cta-banner {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(6, 182, 212, 0.12));
+            border: 1px solid rgba(16, 185, 129, 0.35);
+            border-radius: var(--radius-xl);
+            padding: 48px 32px;
+            text-align: center;
+        }
+
+        .cta-banner h3 {
+            font-size: 26px;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .cta-banner p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin: 0 auto 24px;
+        }
+
+        .btn-cta-big {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 32px;
+            background: var(--accent-emerald);
+            color: #000;
+            font-size: 15px;
+            font-weight: 800;
+            border-radius: var(--radius-md);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.35);
+            transition: all 0.2s;
+        }
+
+        .btn-cta-big:hover {
+            background: #34d399;
+            transform: translateY(-2px);
+            box-shadow: 0 14px 30px rgba(16, 185, 129, 0.45);
+        }
+
+        /* Footer */
+        .footer {
+            border-top: 1px solid var(--border-color);
+            padding: 32px 24px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* Mobile tweaks */
+        @media (max-width: 640px) {
+            .hero-title { font-size: 28px; }
+            .step-card { padding: 22px; }
+            .code-callout { flex-direction: column; align-items: flex-start; gap: 6px; }
+        }
     </style>
 </head>
-<body class="bg-brand-900 text-slate-100 font-sans min-h-screen antialiased selection:bg-brand-emerald selection:text-black">
+<body>
 
-    <!-- Sticky Header -->
-    <header class="sticky top-0 z-50 bg-brand-900/90 backdrop-blur-md border-b border-brand-600/50">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <a href="index.html" class="flex items-center space-x-3 group">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-emerald via-brand-cyan to-brand-purple flex items-center justify-center font-mono font-black text-black text-xl shadow-lg shadow-brand-emerald/20 group-hover:scale-105 transition-transform">
-                        Q
-                    </div>
-                    <div>
-                        <span class="font-extrabold text-white text-lg tracking-tight">QUANTUM<span class="text-brand-emerald">FLEET</span></span>
-                        <span class="block text-[10px] text-slate-400 font-mono tracking-widest uppercase">Manual de Usuario Oficial</span>
-                    </div>
-                </a>
-            </div>
+    <!-- Header Navbar -->
+    <header class="top-nav">
+        <div class="nav-inner">
+            <a href="index.html" class="brand-group">
+                <div class="brand-icon">Q</div>
+                <div class="brand-text">
+                    <h1>QUANTUM<span>FLEET</span></h1>
+                    <p>Manual Oficial de Usuario</p>
+                </div>
+            </a>
 
-            <div class="flex items-center space-x-4">
-                <a href="index.html" class="text-xs font-semibold text-slate-300 hover:text-white transition-colors">
-                    ← Volver a la Web
-                </a>
-                <a href="https://t.me/sol2000_bot" target="_blank" class="px-4 py-2 rounded-xl bg-brand-emerald text-black text-xs font-bold hover:bg-emerald-400 transition-all shadow-md shadow-brand-emerald/20">
+            <div class="nav-actions">
+                <a href="index.html" class="btn-link">← Volver a la Web</a>
+                <a href="https://t.me/sol2000_bot" target="_blank" class="btn-cta-nav">
                     🤖 Abrir Bot en Telegram
                 </a>
             </div>
         </div>
     </header>
 
-    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
-        
-        <!-- Hero Introduction -->
-        <div class="text-center space-y-4">
-            <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-brand-emerald/10 border border-brand-emerald/30 text-brand-emerald text-xs font-mono font-bold uppercase tracking-wider">
-                <span>⚡ GUÍA PASO A PASO PARA PRINCIPIANTES</span>
-            </div>
-            <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
-                Instalación de Quantum en <span class="bg-gradient-to-r from-brand-emerald to-brand-cyan bg-clip-text text-transparent">3 Simples Pasos</span>
+    <main class="container">
+
+        <!-- Hero Title -->
+        <section class="hero-section">
+            <div class="hero-pill">⚡ Guía Visual para Principiantes</div>
+            <h1 class="hero-title">
+                Instalación de Quantum en <span class="gradient-text">3 Simples Pasos</span>
             </h1>
-            <p class="text-base text-slate-400 max-w-2xl mx-auto">
-                No necesitas conocimientos de programación ni saber configurar gráficos complejos. Sigue estos 3 pasos visuales para tener la flota de 4 bots operando oro (XAUUSD) en menos de 2 minutos.
+            <p class="hero-desc">
+                No requieres experiencia técnica ni conocimientos en programación. Sigue estos 3 pasos visuales para tener la flota de 4 bots operando oro (XAUUSD) en menos de 2 minutos.
             </p>
-        </div>
+        </section>
 
         <!-- PASO 1 -->
-        <section class="bg-brand-800/80 border border-brand-600 rounded-3xl p-6 sm:p-10 space-y-6 shadow-xl">
-            <div class="flex items-center justify-between flex-wrap gap-4 border-b border-brand-600/50 pb-4">
-                <div class="flex items-center space-x-3">
-                    <span class="w-10 h-10 rounded-2xl bg-brand-emerald text-black font-black text-lg flex items-center justify-center shadow-lg">1</span>
-                    <div>
-                        <h2 class="text-xl sm:text-2xl font-bold text-white">Obtén tu Clave de Licencia</h2>
-                        <p class="text-xs text-slate-400">Tarda solo 5 segundos en Telegram</p>
+        <section class="step-card">
+            <div class="step-header">
+                <div class="step-badge-group">
+                    <div class="step-number" style="background: var(--accent-emerald);">1</div>
+                    <div class="step-title">
+                        <h2>Obtén tu Clave de Licencia</h2>
+                        <p>Activación instantánea en 5 segundos mediante Telegram</p>
                     </div>
                 </div>
-                <span class="px-3 py-1 rounded-full bg-brand-emerald/10 text-brand-emerald text-xs font-mono font-bold">Tiempo estimado: 10 seg</span>
+                <div class="time-badge">⏱️ Tiempo estimado: 10 seg</div>
             </div>
 
-            <div class="space-y-4">
-                <p class="text-sm text-slate-300">
-                    Abre el bot oficial en Telegram (<a href="https://t.me/sol2000_bot" target="_blank" class="text-brand-cyan font-bold underline">@sol2000_bot</a>) y escribe:
+            <div class="step-body">
+                <p>
+                    Abre el bot oficial en Telegram (<a href="https://t.me/sol2000_bot" target="_blank" style="color: var(--accent-cyan); font-weight: 700; text-decoration: underline;">@sol2000_bot</a>) y escribe tu comando con tu cuenta MT5:
                 </p>
-                <div class="p-4 rounded-2xl bg-black/60 border border-brand-600/60 font-mono text-sm sm:text-base text-brand-cyan flex items-center justify-between">
+                
+                <div class="code-callout">
                     <code>/trial &lt;tu_numero_de_cuenta_mt5&gt;</code>
-                    <span class="text-xs text-slate-400">Ejemplo: /trial 52984982</span>
+                    <span>Ejemplo: /trial 52984982</span>
                 </div>
-                <p class="text-xs text-slate-400">
-                    El bot te devolverá al instante tu clave criptográfica única que empieza por <code class="text-brand-emerald font-bold">QTM-TRIA-...</code>. Cópiala.
+
+                <p style="font-size: 13px; color: var(--text-muted); margin: 0;">
+                    El bot generará al instante tu clave criptográfica única que empieza por <strong style="color: var(--accent-emerald); font-family: var(--font-mono);">QTM-TRIA-...</strong>. Cópiala al portapapeles.
                 </p>
             </div>
 
-            <!-- Image 1 -->
-            <div class="rounded-2xl overflow-hidden border border-brand-600/80 shadow-2xl bg-black/40">
-                <img src="img/paso1_obtener_licencia.png" alt="Paso 1: Obtener clave en Telegram" class="w-full h-auto">
+            <div class="diagram-wrapper">
+                <img src="img/paso1_obtener_licencia.png" alt="Paso 1: Obtener clave en Telegram" class="diagram-img">
             </div>
         </section>
 
         <!-- PASO 2 -->
-        <section class="bg-brand-800/80 border border-brand-600 rounded-3xl p-6 sm:p-10 space-y-6 shadow-xl">
-            <div class="flex items-center justify-between flex-wrap gap-4 border-b border-brand-600/50 pb-4">
-                <div class="flex items-center space-x-3">
-                    <span class="w-10 h-10 rounded-2xl bg-brand-cyan text-black font-black text-lg flex items-center justify-center shadow-lg">2</span>
-                    <div>
-                        <h2 class="text-xl sm:text-2xl font-bold text-white">Prepara tu MetaTrader 5</h2>
-                        <p class="text-xs text-slate-400">Solo debes revisar 2 detalles en la pantalla</p>
+        <section class="step-card">
+            <div class="step-header">
+                <div class="step-badge-group">
+                    <div class="step-number" style="background: var(--accent-cyan);">2</div>
+                    <div class="step-title">
+                        <h2>Prepara tu MetaTrader 5</h2>
+                        <p>Solo debes verificar 2 elementos en tu pantalla</p>
                     </div>
                 </div>
-                <span class="px-3 py-1 rounded-full bg-brand-cyan/10 text-brand-cyan text-xs font-mono font-bold">Tiempo estimado: 15 seg</span>
+                <div class="time-badge">⏱️ Tiempo estimado: 15 seg</div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-slate-300">
-                <div class="p-5 rounded-2xl bg-brand-700/40 border border-brand-600/60 space-y-2">
-                    <div class="font-bold text-white flex items-center space-x-2">
-                        <span class="text-brand-emerald text-base">🟢</span>
-                        <span>1. Botón "Algo Trading" en VERDE</span>
+            <div class="step-body">
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h4>🟢 1. Botón "Algo Trading" en VERDE</h4>
+                        <p>
+                            En la barra superior de MetaTrader 5, haz clic en el botón <strong>"Algo Trading"</strong> (o "Trading Automatizado") hasta que el icono tenga un triángulo de Play en <strong>color verde</strong>.
+                        </p>
                     </div>
-                    <p class="text-xs text-slate-400 leading-relaxed">
-                        En la barra de herramientas superior de MetaTrader 5, haz clic en el botón <strong>"Algo Trading"</strong> (o "Trading Automatizado") hasta que el icono esté en <strong>color verde con triángulo de Play</strong>.
-                    </p>
-                </div>
 
-                <div class="p-5 rounded-2xl bg-brand-700/40 border border-brand-600/60 space-y-2">
-                    <div class="font-bold text-white flex items-center space-x-2">
-                        <span class="text-brand-cyan text-base">👤</span>
-                        <span>2. Confirma tu Número de Cuenta</span>
+                    <div class="info-card">
+                        <h4>👤 2. Confirma tu Número de Cuenta</h4>
+                        <p>
+                            En la parte superior o en la ventana lateral izquierda "Navegador", verifica tu número de cuenta conectado (ej. <strong>#52984982</strong>). Debe ser el mismo que usaste en el Paso 1.
+                        </p>
                     </div>
-                    <p class="text-xs text-slate-400 leading-relaxed">
-                        En la barra superior o en la ventana lateral izquierda "Navegador", verás tu número de cuenta (ej. <strong>#52984982</strong>). Este es el número que amarra tu clave.
-                    </p>
                 </div>
             </div>
 
-            <!-- Image 2 -->
-            <div class="rounded-2xl overflow-hidden border border-brand-600/80 shadow-2xl bg-black/40">
-                <img src="img/paso2_ajustes_metatrader5.png" alt="Paso 2: MetaTrader 5 Algo Trading" class="w-full h-auto">
+            <div class="diagram-wrapper">
+                <img src="img/paso2_ajustes_metatrader5.png" alt="Paso 2: MetaTrader 5 y Algo Trading" class="diagram-img">
             </div>
         </section>
 
         <!-- PASO 3 -->
-        <section class="bg-brand-800/80 border border-brand-600 rounded-3xl p-6 sm:p-10 space-y-6 shadow-xl">
-            <div class="flex items-center justify-between flex-wrap gap-4 border-b border-brand-600/50 pb-4">
-                <div class="flex items-center space-x-3">
-                    <span class="w-10 h-10 rounded-2xl bg-brand-amber text-black font-black text-lg flex items-center justify-center shadow-lg">3</span>
-                    <div>
-                        <h2 class="text-xl sm:text-2xl font-bold text-white">Pega la Clave y Ejecuta (1 Clic)</h2>
-                        <p class="text-xs text-slate-400">El bot se conecta automáticamente a tu MT5</p>
+        <section class="step-card">
+            <div class="step-header">
+                <div class="step-badge-group">
+                    <div class="step-number" style="background: var(--accent-amber);">3</div>
+                    <div class="step-title">
+                        <h2>Pega tu Clave y Ejecuta</h2>
+                        <p>El bot se conecta automáticamente a tu terminal de MT5</p>
                     </div>
                 </div>
-                <span class="px-3 py-1 rounded-full bg-brand-amber/10 text-brand-amber text-xs font-mono font-bold">Tiempo estimado: 20 seg</span>
+                <div class="time-badge">⏱️ Tiempo estimado: 20 seg</div>
             </div>
 
-            <div class="space-y-4">
-                <ol class="list-decimal list-inside space-y-2 text-sm text-slate-300">
-                    <li>Descomprime la carpeta del bot descargada (<code class="text-brand-emerald">quantum-trading-fleet.zip</code>).</li>
-                    <li>Abre el archivo <code class="text-brand-cyan font-bold">quantum_config.json</code> con el <strong>Bloc de Notas</strong> (clic derecho > Abrir con > Bloc de Notas).</li>
-                    <li>Pega tu clave en <code class="text-brand-emerald">"license_key"</code> y escribe tu cuenta en <code class="text-brand-emerald">"mt5_login"</code>. Guarda el archivo (<kbd class="px-2 py-0.5 rounded bg-brand-700 text-xs">Ctrl + G</kbd>).</li>
-                    <li>Haz doble clic en <strong class="text-white">start_quantum.bat</strong>.</li>
-                </ol>
+            <div class="step-body">
+                <ul class="checklist">
+                    <li><span class="check-icon">✓</span> <span>Descomprime la carpeta descargada (<code>quantum-trading-fleet.zip</code>).</span></li>
+                    <li><span class="check-icon">✓</span> <span>Abre el archivo <strong>quantum_config.json</strong> con el Bloc de Notas (Notepad).</span></li>
+                    <li><span class="check-icon">✓</span> <span>Pega tu clave en <code>"license_key"</code> y tu número de cuenta en <code>"mt5_login"</code>. Guarda el archivo (<strong>Ctrl + G</strong>).</span></li>
+                    <li><span class="check-icon">✓</span> <span>Haz doble clic en <strong>start_quantum.bat</strong>.</span></li>
+                </ul>
 
-                <div class="p-4 rounded-2xl bg-black/60 border border-emerald-500/40 text-xs font-mono text-emerald-400">
-                    ✓ La consola negra se abrirá mostrando: <br>
-                    <code>[OK] LICENCIA CRIPTOGRÁFICA VÁLIDA (Plan: TRIAL 7 DÍAS)</code><br>
-                    <code>[OK] CONECTADO A METATRADER 5 (Cuenta: #52984982)</code><br>
-                    <code>🟢 MONITOREANDO MERCADO 24/5...</code>
+                <div class="console-output">
+                    [OK] ARCHIVO DE CONFIG CARGADO<br>
+                    [OK] LICENCIA CRIPTOGRÁFICA VÁLIDA (Plan: TRIAL 7 DÍAS)<br>
+                    [OK] CONECTADO A METATRADER 5 (Cuenta: #52984982)<br>
+                    [OK] FLOTA DE 4 BOTS OPERANDO XAUUSD<br>
+                    --------------------------------------------------<br>
+                    🟢 MONITOREANDO MERCADO 24/5...
                 </div>
             </div>
 
-            <!-- Image 3 -->
-            <div class="rounded-2xl overflow-hidden border border-brand-600/80 shadow-2xl bg-black/40">
-                <img src="img/paso3_pegar_clave_y_ejecutar.png" alt="Paso 3: Configuración y Runner" class="w-full h-auto">
+            <div class="diagram-wrapper">
+                <img src="img/paso3_pegar_clave_y_ejecutar.png" alt="Paso 3: Configuración y Runner" class="diagram-img">
             </div>
         </section>
 
         <!-- FAQ Section -->
-        <section class="bg-brand-800/40 border border-brand-600/50 rounded-3xl p-8 sm:p-10 space-y-6">
-            <h3 class="text-xl font-bold text-white">Preguntas Frecuentes de Usuarios</h3>
+        <section class="faq-section">
+            <h3 class="faq-title">Preguntas Frecuentes de Usuarios</h3>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-slate-300">
-                <div class="space-y-2">
-                    <h4 class="font-bold text-white text-sm">¿Tengo que arrastrar algo al gráfico de MT5?</h4>
-                    <p class="text-slate-400 leading-relaxed">
-                        No. A diferencia de los EAs antiguos en MQL5, Quantum es una flota algorítmica moderna que se conecta automáticamente a tu terminal mediante la API oficial de MetaTrader 5 sin necesidad de instalar archivos en carpetas de sistema.
-                    </p>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h4>¿Tengo que arrastrar algo al gráfico de MT5?</h4>
+                    <p>No. Quantum es un software autónomo moderno que se conecta directamente a la API nativa de MetaTrader 5 sin necesidad de copiar archivos en carpetas internas de MQL5.</p>
                 </div>
 
-                <div class="space-y-2">
-                    <h4 class="font-bold text-white text-sm">¿Funciona en cuentas Demo y Reales?</h4>
-                    <p class="text-slate-400 leading-relaxed">
-                        Sí, al 100%. Puedes probarlo primero en cualquier cuenta demo (recomendamos ICMarkets, Pepperstone o Vantage con apalancamiento 1:100 o superior) y luego cambiar a tu cuenta real cuando confirmes los resultados.
-                    </p>
+                <div class="faq-item">
+                    <h4>¿Funciona en cuentas Demo y Reales?</h4>
+                    <p>Sí, al 100%. Te recomendamos probar la semana gratuita primero en cualquier cuenta demo (ej. ICMarkets, Pepperstone o Vantage) para ver los beneficios con cero riesgo.</p>
                 </div>
 
-                <div class="space-y-2">
-                    <h4 class="font-bold text-white text-sm">¿Puedo apagar la computadora?</h4>
-                    <p class="text-slate-400 leading-relaxed">
-                        El bot opera mientras tu computadora y MetaTrader 5 estén encendidos con internet. Si deseas que opere las 24 horas continuas sin tener tu PC encendida, puedes instalarlo en un VPS de Windows ($5/mes).
-                    </p>
+                <div class="faq-item">
+                    <h4>¿Puedo apagar la computadora?</h4>
+                    <p>El bot opera mientras tu PC y MetaTrader 5 estén encendidos con conexión a internet. Si quieres que opere las 24 horas continuas sin tu PC, puedes montarlo en un VPS Windows ($5/mes).</p>
                 </div>
 
-                <div class="space-y-2">
-                    <h4 class="font-bold text-white text-sm">¿Qué pasa cuando terminan los 7 días gratis?</h4>
-                    <p class="text-slate-400 leading-relaxed">
-                        Al cumplirse los 7 días exactos, el ejecutable se detiene de forma segura cerrando cualquier orden pendiente. Para continuar disfrutando de la rentabilidad, puedes adquirir la licencia trimestral ($49 USD) o vitalicia ($99 USD).
-                    </p>
+                <div class="faq-item">
+                    <h4>¿Qué ocurre al terminar los 7 días gratis?</h4>
+                    <p>El bot se detiene de forma segura cerrando operaciones. Para seguir operando puedes adquirir la licencia trimestral ($49 USD) o vitalicia ($99 USD) desde la tienda oficial.</p>
                 </div>
             </div>
         </section>
 
         <!-- CTA Box -->
-        <div class="text-center p-8 rounded-3xl bg-gradient-to-tr from-brand-emerald/10 via-brand-cyan/10 to-transparent border border-brand-emerald/30 space-y-4">
-            <h3 class="text-2xl font-black text-white">¿Listo para activar tu semana de prueba?</h3>
-            <p class="text-xs text-slate-400 max-w-md mx-auto">
-                No arriesgas nada. Pruébalo en cuenta demo y verifica las operaciones en vivo en tu MetaTrader 5.
-            </p>
-            <div class="pt-2">
-                <a href="https://t.me/sol2000_bot" target="_blank" class="inline-flex items-center space-x-2 px-6 py-3.5 rounded-xl bg-brand-emerald hover:bg-emerald-400 text-black font-extrabold text-sm transition-all shadow-lg shadow-brand-emerald/20 hover:scale-105">
-                    <span>🚀 Solicitar Clave Gratis en Telegram</span>
-                </a>
-            </div>
-        </div>
+        <section class="cta-banner">
+            <h3>¿Listo para activar tu semana de prueba?</h3>
+            <p>Comprueba la rentabilidad del bot en tu cuenta demo sin tarjeta bancaria y con cero riesgo.</p>
+            <a href="https://t.me/sol2000_bot" target="_blank" class="btn-cta-big">
+                🚀 Solicitar Clave Gratis en Telegram
+            </a>
+        </section>
 
     </main>
 
-    <!-- Footer -->
-    <footer class="border-t border-brand-600/50 py-8 text-center text-xs text-slate-500">
+    <footer class="footer">
         <p>© 2026 Quantum Trading Fleet. Todos los derechos reservados. Rendimientos pasados no garantizan resultados futuros. Opere con responsabilidad.</p>
     </footer>
 
