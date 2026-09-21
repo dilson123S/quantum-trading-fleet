@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual Visual de Instalación · Quantum Trading Fleet (XAUUSD)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            900: '#070b14',
+                            800: '#0b1120',
+                            700: '#0f172a',
+                            600: '#1e293b',
+                            emerald: '#10b981',
+                            cyan: '#38bdf8',
+                            amber: '#f59e0b',
+                            purple: '#a855f7'
+                        }
+                    },
+                    fontFamily: {
+                        mono: ['JetBrains Mono', 'monospace'],
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+    </style>
+</head>
+<body class="bg-brand-900 text-slate-100 font-sans min-h-screen antialiased selection:bg-brand-emerald selection:text-black">
+
+    <!-- Sticky Header -->
+    <header class="sticky top-0 z-50 bg-brand-900/90 backdrop-blur-md border-b border-brand-600/50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <a href="index.html" class="flex items-center space-x-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-emerald via-brand-cyan to-brand-purple flex items-center justify-center font-mono font-black text-black text-xl shadow-lg shadow-brand-emerald/20 group-hover:scale-105 transition-transform">
+                        Q
+                    </div>
+                    <div>
+                        <span class="font-extrabold text-white text-lg tracking-tight">QUANTUM<span class="text-brand-emerald">FLEET</span></span>
+                        <span class="block text-[10px] text-slate-400 font-mono tracking-widest uppercase">Manual de Usuario Oficial</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="flex items-center space-x-4">
+                <a href="index.html" class="text-xs font-semibold text-slate-300 hover:text-white transition-colors">
+                    ← Volver a la Web
+                </a>
+                <a href="https://t.me/sol2000_bot" target="_blank" class="px-4 py-2 rounded-xl bg-brand-emerald text-black text-xs font-bold hover:bg-emerald-400 transition-all shadow-md shadow-brand-emerald/20">
+                    🤖 Abrir Bot en Telegram
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
+        
+        <!-- Hero Introduction -->
+        <div class="text-center space-y-4">
+            <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-brand-emerald/10 border border-brand-emerald/30 text-brand-emerald text-xs font-mono font-bold uppercase tracking-wider">
+                <span>⚡ GUÍA PASO A PASO PARA PRINCIPIANTES</span>
+            </div>
+            <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
+                Instalación de Quantum en <span class="bg-gradient-to-r from-brand-emerald to-brand-cyan bg-clip-text text-transparent">3 Simples Pasos</span>
+            </h1>
+            <p class="text-base text-slate-400 max-w-2xl mx-auto">
+                No necesitas conocimientos de programación ni saber configurar gráficos complejos. Sigue estos 3 pasos visuales para tener la flota de 4 bots operando oro (XAUUSD) en menos de 2 minutos.
+            </p>
+        </div>
+
+        <!-- PASO 1 -->
+        <section class="bg-brand-800/80 border border-brand-600 rounded-3xl p-6 sm:p-10 space-y-6 shadow-xl">
+            <div class="flex items-center justify-between flex-wrap gap-4 border-b border-brand-600/50 pb-4">
+                <div class="flex items-center space-x-3">
+                    <span class="w-10 h-10 rounded-2xl bg-brand-emerald text-black font-black text-lg flex items-center justify-center shadow-lg">1</span>
+                    <div>
+                        <h2 class="text-xl sm:text-2xl font-bold text-white">Obtén tu Clave de Licencia</h2>
+                        <p class="text-xs text-slate-400">Tarda solo 5 segundos en Telegram</p>
+                    </div>
+                </div>
+                <span class="px-3 py-1 rounded-full bg-brand-emerald/10 text-brand-emerald text-xs font-mono font-bold">Tiempo estimado: 10 seg</span>
+            </div>
+
+            <div class="space-y-4">
+                <p class="text-sm text-slate-300">
+                    Abre el bot oficial en Telegram (<a href="https://t.me/sol2000_bot" target="_blank" class="text-brand-cyan font-bold underline">@sol2000_bot</a>) y escribe:
+                </p>
+                <div class="p-4 rounded-2xl bg-black/60 border border-brand-600/60 font-mono text-sm sm:text-base text-brand-cyan flex items-center justify-between">
+                    <code>/trial &lt;tu_numero_de_cuenta_mt5&gt;</code>
+                    <span class="text-xs text-slate-400">Ejemplo: /trial 52984982</span>
+                </div>
+                <p class="text-xs text-slate-400">
+                    El bot te devolverá al instante tu clave criptográfica única que empieza por <code class="text-brand-emerald font-bold">QTM-TRIA-...</code>. Cópiala.
+                </p>
+            </div>
+
+            <!-- Image 1 -->
+            <div class="rounded-2xl overflow-hidden border border-brand-600/80 shadow-2xl bg-black/40">
+                <img src="img/paso1_obtener_licencia.png" alt="Paso 1: Obtener clave en Telegram" class="w-full h-auto">
+            </div>
+        </section>
+
+        <!-- PASO 2 -->
+        <section class="bg-brand-800/80 border border-brand-600 rounded-3xl p-6 sm:p-10 space-y-6 shadow-xl">
+            <div class="flex items-center justify-between flex-wrap gap-4 border-b border-brand-600/50 pb-4">
+                <div class="flex items-center space-x-3">
+                    <span class="w-10 h-10 rounded-2xl bg-brand-cyan text-black font-black text-lg flex items-center justify-center shadow-lg">2</span>
+                    <div>
+                        <h2 class="text-xl sm:text-2xl font-bold text-white">Prepara tu MetaTrader 5</h2>
+                        <p class="text-xs text-slate-400">Solo debes revisar 2 detalles en la pantalla</p>
+                    </div>
+                </div>
+                <span class="px-3 py-1 rounded-full bg-brand-cyan/10 text-brand-cyan text-xs font-mono font-bold">Tiempo estimado: 15 seg</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-slate-300">
+                <div class="p-5 rounded-2xl bg-brand-700/40 border border-brand-600/60 space-y-2">
+                    <div class="font-bold text-white flex items-center space-x-2">
+                        <span class="text-brand-emerald text-base">🟢</span>
+                        <span>1. Botón "Algo Trading" en VERDE</span>
+                    </div>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        En la barra de herramientas superior de MetaTrader 5, haz clic en el botón <strong>"Algo Trading"</strong> (o "Trading Automatizado") hasta que el icono esté en <strong>color verde con triángulo de Play</strong>.
+                    </p>
+                </div>
+
+                <div class="p-5 rounded-2xl bg-brand-700/40 border border-brand-600/60 space-y-2">
+                    <div class="font-bold text-white flex items-center space-x-2">
+                        <span class="text-brand-cyan text-base">👤</span>
+                        <span>2. Confirma tu Número de Cuenta</span>
+                    </div>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        En la barra superior o en la ventana lateral izquierda "Navegador", verás tu número de cuenta (ej. <strong>#52984982</strong>). Este es el número que amarra tu clave.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Image 2 -->
+            <div class="rounded-2xl overflow-hidden border border-brand-600/80 shadow-2xl bg-black/40">
+                <img src="img/paso2_ajustes_metatrader5.png" alt="Paso 2: MetaTrader 5 Algo Trading" class="w-full h-auto">
+            </div>
+        </section>
+
+        <!-- PASO 3 -->
+        <section class="bg-brand-800/80 border border-brand-600 rounded-3xl p-6 sm:p-10 space-y-6 shadow-xl">
+            <div class="flex items-center justify-between flex-wrap gap-4 border-b border-brand-600/50 pb-4">
+                <div class="flex items-center space-x-3">
+                    <span class="w-10 h-10 rounded-2xl bg-brand-amber text-black font-black text-lg flex items-center justify-center shadow-lg">3</span>
+                    <div>
+                        <h2 class="text-xl sm:text-2xl font-bold text-white">Pega la Clave y Ejecuta (1 Clic)</h2>
+                        <p class="text-xs text-slate-400">El bot se conecta automáticamente a tu MT5</p>
+                    </div>
+                </div>
+                <span class="px-3 py-1 rounded-full bg-brand-amber/10 text-brand-amber text-xs font-mono font-bold">Tiempo estimado: 20 seg</span>
+            </div>
+
+            <div class="space-y-4">
+                <ol class="list-decimal list-inside space-y-2 text-sm text-slate-300">
+                    <li>Descomprime la carpeta del bot descargada (<code class="text-brand-emerald">quantum-trading-fleet.zip</code>).</li>
+                    <li>Abre el archivo <code class="text-brand-cyan font-bold">quantum_config.json</code> con el <strong>Bloc de Notas</strong> (clic derecho > Abrir con > Bloc de Notas).</li>
+                    <li>Pega tu clave en <code class="text-brand-emerald">"license_key"</code> y escribe tu cuenta en <code class="text-brand-emerald">"mt5_login"</code>. Guarda el archivo (<kbd class="px-2 py-0.5 rounded bg-brand-700 text-xs">Ctrl + G</kbd>).</li>
+                    <li>Haz doble clic en <strong class="text-white">start_quantum.bat</strong>.</li>
+                </ol>
+
+                <div class="p-4 rounded-2xl bg-black/60 border border-emerald-500/40 text-xs font-mono text-emerald-400">
+                    ✓ La consola negra se abrirá mostrando: <br>
+                    <code>[OK] LICENCIA CRIPTOGRÁFICA VÁLIDA (Plan: TRIAL 7 DÍAS)</code><br>
+                    <code>[OK] CONECTADO A METATRADER 5 (Cuenta: #52984982)</code><br>
+                    <code>🟢 MONITOREANDO MERCADO 24/5...</code>
+                </div>
+            </div>
+
+            <!-- Image 3 -->
+            <div class="rounded-2xl overflow-hidden border border-brand-600/80 shadow-2xl bg-black/40">
+                <img src="img/paso3_pegar_clave_y_ejecutar.png" alt="Paso 3: Configuración y Runner" class="w-full h-auto">
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="bg-brand-800/40 border border-brand-600/50 rounded-3xl p-8 sm:p-10 space-y-6">
+            <h3 class="text-xl font-bold text-white">Preguntas Frecuentes de Usuarios</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-slate-300">
+                <div class="space-y-2">
+                    <h4 class="font-bold text-white text-sm">¿Tengo que arrastrar algo al gráfico de MT5?</h4>
+                    <p class="text-slate-400 leading-relaxed">
+                        No. A diferencia de los EAs antiguos en MQL5, Quantum es una flota algorítmica moderna que se conecta automáticamente a tu terminal mediante la API oficial de MetaTrader 5 sin necesidad de instalar archivos en carpetas de sistema.
+                    </p>
+                </div>
+
+                <div class="space-y-2">
+                    <h4 class="font-bold text-white text-sm">¿Funciona en cuentas Demo y Reales?</h4>
+                    <p class="text-slate-400 leading-relaxed">
+                        Sí, al 100%. Puedes probarlo primero en cualquier cuenta demo (recomendamos ICMarkets, Pepperstone o Vantage con apalancamiento 1:100 o superior) y luego cambiar a tu cuenta real cuando confirmes los resultados.
+                    </p>
+                </div>
+
+                <div class="space-y-2">
+                    <h4 class="font-bold text-white text-sm">¿Puedo apagar la computadora?</h4>
+                    <p class="text-slate-400 leading-relaxed">
+                        El bot opera mientras tu computadora y MetaTrader 5 estén encendidos con internet. Si deseas que opere las 24 horas continuas sin tener tu PC encendida, puedes instalarlo en un VPS de Windows ($5/mes).
+                    </p>
+                </div>
+
+                <div class="space-y-2">
+                    <h4 class="font-bold text-white text-sm">¿Qué pasa cuando terminan los 7 días gratis?</h4>
+                    <p class="text-slate-400 leading-relaxed">
+                        Al cumplirse los 7 días exactos, el ejecutable se detiene de forma segura cerrando cualquier orden pendiente. Para continuar disfrutando de la rentabilidad, puedes adquirir la licencia trimestral ($49 USD) o vitalicia ($99 USD).
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Box -->
+        <div class="text-center p-8 rounded-3xl bg-gradient-to-tr from-brand-emerald/10 via-brand-cyan/10 to-transparent border border-brand-emerald/30 space-y-4">
+            <h3 class="text-2xl font-black text-white">¿Listo para activar tu semana de prueba?</h3>
+            <p class="text-xs text-slate-400 max-w-md mx-auto">
+                No arriesgas nada. Pruébalo en cuenta demo y verifica las operaciones en vivo en tu MetaTrader 5.
+            </p>
+            <div class="pt-2">
+                <a href="https://t.me/sol2000_bot" target="_blank" class="inline-flex items-center space-x-2 px-6 py-3.5 rounded-xl bg-brand-emerald hover:bg-emerald-400 text-black font-extrabold text-sm transition-all shadow-lg shadow-brand-emerald/20 hover:scale-105">
+                    <span>🚀 Solicitar Clave Gratis en Telegram</span>
+                </a>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-brand-600/50 py-8 text-center text-xs text-slate-500">
+        <p>© 2026 Quantum Trading Fleet. Todos los derechos reservados. Rendimientos pasados no garantizan resultados futuros. Opere con responsabilidad.</p>
+    </footer>
+
+</body>
+</html>
