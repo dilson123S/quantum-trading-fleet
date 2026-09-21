@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Trading System · Flota Algorítmica Multi-Bot para Oro (XAUUSD)</title>
+    <meta name="description" content="Sistema algorítmico institucional para MetaTrader 5 basado en Smart Money Concepts (SMC) y barridos de liquidez con rentabilidad comprobada de 2 años en XAUUSD.">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        quantum: {
+                            900: '#070b14',
+                            800: '#0b1120',
+                            700: '#0f172a',
+                            600: '#1e293b',
+                            cyan: '#38bdf8',
+                            emerald: '#10b981',
+                            gold: '#f59e0b',
+                            purple: '#a855f7'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+        .glow-emerald { box-shadow: 0 0 35px -5px rgba(16, 185, 129, 0.3); }
+        .glow-cyan { box-shadow: 0 0 35px -5px rgba(56, 189, 248, 0.25); }
+        .grid-pattern {
+            background-image: radial-gradient(rgba(56, 189, 248, 0.08) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+    </style>
+</head>
+<body class="bg-quantum-900 text-slate-100 font-sans antialiased selection:bg-emerald-500 selection:text-black">
+
+    <!-- Top Navigation -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-quantum-900/80 border-b border-quantum-600/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 via-cyan-500 to-purple-600 flex items-center justify-center font-mono font-black text-black text-xl shadow-lg">
+                    Q
+                </div>
+                <div>
+                    <div class="flex items-center space-x-2">
+                        <span class="font-bold tracking-wider text-lg text-white">QUANTUM</span>
+                        <span class="px-2 py-0.5 text-xs font-semibold uppercase tracking-widest bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 rounded-full">v2.0 MT5</span>
+                    </div>
+                    <p class="text-xs text-slate-400 hidden sm:block">Institutional Multi-Bot Fleet · XAUUSD</p>
+                </div>
+            </div>
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
+                <a href="#kpi" class="hover:text-emerald-400 transition-colors">Métricas Reales</a>
+                <a href="#backtest" class="hover:text-emerald-400 transition-colors">Backtest 2 Años</a>
+                <a href="#flota" class="hover:text-emerald-400 transition-colors">Los 4 Algoritmos</a>
+                <a href="#licencia" class="hover:text-emerald-400 transition-colors">Seguridad de Licencia</a>
+                <a href="#precios" class="hover:text-emerald-400 transition-colors">Precios</a>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <a href="#precios" class="relative inline-flex items-center justify-center px-5 py-2.5 text-sm font-bold text-black transition-all bg-emerald-400 rounded-xl hover:bg-emerald-300 shadow-lg shadow-emerald-500/20 hover:scale-105 active:scale-95">
+                    Adquirir Licencia
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-12 pb-20 overflow-hidden grid-pattern border-b border-quantum-600/40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-8 glow-emerald">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                Rentabilidad Out-Of-Sample Comprobada · MetaTrader 5
+            </div>
+
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white mb-6">
+                Trading Algorítmico Cuantitativo <br>
+                <span class="bg-gradient-to-r from-emerald-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent">
+                    Diseñado para Dominar el Oro (XAUUSD)
+                </span>
+            </h1>
+
+            <p class="max-w-3xl mx-auto text-lg sm:text-xl text-slate-400 mb-10 leading-relaxed font-normal">
+                Flota coordinada de 4 bots autónomos impulsada por <strong class="text-white">Smart Money Concepts (SMC)</strong>, barridos de liquidez institucional y cosecha inteligente de beneficios. Ejecución de alta precisión conectada directamente a tu terminal MT5.
+            </p>
+
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+                <a href="#precios" class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-400 text-black font-extrabold text-base rounded-2xl shadow-xl shadow-emerald-500/25 hover:shadow-emerald-500/40 hover:scale-105 active:scale-95 transition-all text-center">
+                    🚀 Obtener Licencia de Trading ($49 USD)
+                </a>
+                <a href="#backtest" class="w-full sm:w-auto px-8 py-4 bg-quantum-700/80 hover:bg-quantum-600 border border-slate-700 text-white font-bold text-base rounded-2xl transition-all flex items-center justify-center gap-2">
+                    📊 Ver Auditoría de Backtest
+                </a>
+            </div>
+
+            <!-- Hero Highlights Badges -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto text-left">
+                <div class="p-4 rounded-2xl bg-quantum-800/80 border border-quantum-600/60 backdrop-blur-sm">
+                    <p class="text-xs text-slate-400 font-medium">Beneficio Neto OOS (2 Años)</p>
+                    <p class="text-2xl font-black text-emerald-400">+$2,759.39 USD</p>
+                    <p class="text-[11px] text-slate-500 font-mono">+25.36 R Retorno Puro</p>
+                </div>
+                <div class="p-4 rounded-2xl bg-quantum-800/80 border border-quantum-600/60 backdrop-blur-sm">
+                    <p class="text-xs text-slate-400 font-medium">Profit Factor Cuantitativo</p>
+                    <p class="text-2xl font-black text-cyan-400">1.75</p>
+                    <p class="text-[11px] text-slate-500 font-mono">$6,451 Win / $3,692 Loss</p>
+                </div>
+                <div class="p-4 rounded-2xl bg-quantum-800/80 border border-quantum-600/60 backdrop-blur-sm">
+                    <p class="text-xs text-slate-400 font-medium">Récord Flota en Vivo (Demo)</p>
+                    <p class="text-2xl font-black text-emerald-400">100% Win Rate</p>
+                    <p class="text-[11px] text-slate-500 font-mono">9 Victorias · 0 Pérdidas</p>
+                </div>
+                <div class="p-4 rounded-2xl bg-quantum-800/80 border border-quantum-600/60 backdrop-blur-sm">
+                    <p class="text-xs text-slate-400 font-medium">Drawdown Máximo Controlado</p>
+                    <p class="text-2xl font-black text-purple-400">$541.39 USD</p>
+                    <p class="text-[11px] text-slate-500 font-mono">Solo 4.5% del capital pico</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Key Performance Dashboard -->
+    <section id="kpi" class="py-20 bg-quantum-800/50 border-b border-quantum-600/40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-mono uppercase tracking-widest text-emerald-400 font-bold bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">Telemetría y Rendimiento</span>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-white mt-4 mb-4 tracking-tight">
+                    Métricas Verificadas de Grado Institucional
+                </h2>
+                <p class="text-slate-400 text-base">
+                    Sin promesas vacías ni martingalas arriesgadas. Cada trade sigue reglas estrictas de gestión de riesgo con stops fijos calculados según el Average True Range (ATR) y salida automática por estancamiento.
+                </p>
+            </div>
+
+            <!-- Scorecard Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+                <div class="p-6 rounded-3xl bg-quantum-700/60 border border-quantum-600/70 hover:border-emerald-500/50 transition-all">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs font-mono text-slate-400 uppercase tracking-wider">Tasa de Acierto</span>
+                        <span class="w-8 h-8 rounded-full bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-bold">🎯</span>
+                    </div>
+                    <div class="text-3xl font-black text-white mb-1">51.88%</div>
+                    <div class="text-xs text-emerald-400 font-medium">83 Victorias / 77 Pérdidas</div>
+                    <p class="text-xs text-slate-400 mt-3 leading-relaxed">
+                        En trading algorítmico tendencial, un Win Rate del 52% con ratio 1.62:1 produce un crecimiento asimétrico constante.
+                    </p>
+                </div>
+
+                <div class="p-6 rounded-3xl bg-quantum-700/60 border border-quantum-600/70 hover:border-cyan-500/50 transition-all">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs font-mono text-slate-400 uppercase tracking-wider">Ratio Beneficio/Riesgo</span>
+                        <span class="w-8 h-8 rounded-full bg-cyan-500/10 text-cyan-400 flex items-center justify-center font-bold">⚖️</span>
+                    </div>
+                    <div class="text-3xl font-black text-white mb-1">1.62 R</div>
+                    <div class="text-xs text-cyan-400 font-medium">Avg Win: $77.73 / Avg Loss: $47.95</div>
+                    <p class="text-xs text-slate-400 mt-3 leading-relaxed">
+                        Ganamos 62% más en los aciertos de lo que arriesgamos en los stops. Cada victoria compensa holgadamente las pérdidas.
+                    </p>
+                </div>
+
+                <div class="p-6 rounded-3xl bg-quantum-700/60 border border-quantum-600/70 hover:border-purple-500/50 transition-all">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs font-mono text-slate-400 uppercase tracking-wider">Meses Ganadores</span>
+                        <span class="w-8 h-8 rounded-full bg-purple-500/10 text-purple-400 flex items-center justify-center font-bold">📅</span>
+                    </div>
+                    <div class="text-3xl font-black text-white mb-1">72.0%</div>
+                    <div class="text-xs text-purple-400 font-medium">18 de 25 Meses en Verde</div>
+                    <p class="text-xs text-slate-400 mt-3 leading-relaxed">
+                        Consistencia probada a lo largo de ciclos de alta y baja volatilidad en el oro durante más de 700 días consecutivos.
+                    </p>
+                </div>
+
+                <div class="p-6 rounded-3xl bg-quantum-700/60 border border-quantum-600/70 hover:border-amber-500/50 transition-all">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-xs font-mono text-slate-400 uppercase tracking-wider">Cosecha Inteligente</span>
+                        <span class="w-8 h-8 rounded-full bg-amber-500/10 text-amber-400 flex items-center justify-center font-bold">🛡️</span>
+                    </div>
+                    <div class="text-3xl font-black text-white mb-1">Break-Even</div>
+                    <div class="text-xs text-amber-400 font-medium">0.5R Parcial · 0.8R BE</div>
+                    <p class="text-xs text-slate-400 mt-3 leading-relaxed">
+                        Blindaje dinámico de posición: al llegar a 0.8R el Stop Loss se mueve automáticamente por encima de la entrada.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Official Scorecard Dashboard Image -->
+            <div class="rounded-3xl overflow-hidden border border-quantum-600/80 shadow-2xl bg-quantum-900 p-2 sm:p-4">
+                <img src="img/quantum_metrics_dashboard.png" alt="Scorecard Cuantitativo Oficial" class="w-full h-auto rounded-2xl">
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Backtest Visuals Section -->
+    <section id="backtest" class="py-20 bg-quantum-900 border-b border-quantum-600/40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-mono uppercase tracking-widest text-cyan-400 font-bold bg-cyan-500/10 px-3 py-1 rounded-full border border-cyan-500/20">Evidencia Empírica</span>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-white mt-4 mb-4 tracking-tight">
+                    Auditoría de Curva de Capital y Retornos
+                </h2>
+                <p class="text-slate-400 text-base">
+                    Análisis minucioso sobre 160 operaciones ejecutadas en XAUUSD (M5/H1) entre Septiembre 2024 y Septiembre 2026.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+                <!-- Equity Curve Card -->
+                <div class="rounded-3xl bg-quantum-800/80 border border-quantum-600/80 p-6 shadow-xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                                Curva de Capital Acumulada
+                            </h3>
+                            <span class="px-2.5 py-1 text-xs font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full font-bold">+$2,759.39 USD</span>
+                        </div>
+                        <p class="text-xs text-slate-400 mb-6">
+                            Evolución del saldo partiendo de $10,000 USD. Observa cómo el filtro de calidad de mercado congela operaciones en periodos caóticos, manteniendo el drawdown contenido en solo $541.39 USD.
+                        </p>
+                    </div>
+                    <div class="rounded-2xl overflow-hidden border border-quantum-600/50 bg-quantum-900">
+                        <img src="img/quantum_equity_curve_xauusd.png" alt="Curva de Capital XAUUSD" class="w-full h-auto">
+                    </div>
+                </div>
+
+                <!-- Monthly Returns Card -->
+                <div class="rounded-3xl bg-quantum-800/80 border border-quantum-600/80 p-6 shadow-xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span>
+                                Histograma de Retornos Mensuales
+                            </h3>
+                            <span class="px-2.5 py-1 text-xs font-mono bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 rounded-full font-bold">18 Meses Positivos</span>
+                        </div>
+                        <p class="text-xs text-slate-400 mb-6">
+                            Rendimiento distribuido mes a mes. Las pérdidas máximas mensuales nunca superaron los $415 USD, mientras que los meses ganadores alcanzaron hasta +$341 USD netos.
+                        </p>
+                    </div>
+                    <div class="rounded-2xl overflow-hidden border border-quantum-600/50 bg-quantum-900">
+                        <img src="img/quantum_monthly_returns.png" alt="Retornos Mensuales XAUUSD" class="w-full h-auto">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Live Fleet Breakdown Card -->
+            <div class="rounded-3xl bg-quantum-800/80 border border-quantum-600/80 p-6 shadow-xl">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-6">
+                    <div>
+                        <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full bg-purple-400"></span>
+                            Récord Oficial de la Flota en Cuenta Demo Real (ICMarkets)
+                        </h3>
+                        <p class="text-xs text-slate-400 mt-1">Cuenta ICMarketsSC-Demo #52984982 · Monitoreo continuo vía autopsia cognitiva de trades</p>
+                    </div>
+                    <span class="mt-4 sm:mt-0 inline-flex items-center px-3 py-1.5 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-xs font-bold font-mono">
+                        9W · 0L (100% Win Rate) · +$219.01 USD
+                    </span>
+                </div>
+                <div class="rounded-2xl overflow-hidden border border-quantum-600/50 bg-quantum-900">
+                    <img src="img/quantum_fleet_breakdown.png" alt="Desglose de la Flota" class="w-full h-auto">
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Fleet of 4 Bots Section -->
+    <section id="flota" class="py-20 bg-quantum-800/40 border-b border-quantum-600/40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-mono uppercase tracking-widest text-purple-400 font-bold bg-purple-500/10 px-3 py-1 rounded-full border border-purple-500/20">Arquitectura Descentralizada</span>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-white mt-4 mb-4 tracking-tight">
+                    Una Flota de 4 Algoritmos Especializados
+                </h2>
+                <p class="text-slate-400 text-base">
+                    En lugar de confiar en una sola estrategia rígida, Quantum despliega 4 robots complementarios que operan en paralelo sin solapar riesgo gracias al gestor de exposición global.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Bot A -->
+                <div class="p-8 rounded-3xl bg-quantum-700/50 border border-cyan-500/30 hover:border-cyan-400 transition-all relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl group-hover:bg-cyan-500/20 transition-all"></div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="px-3 py-1 rounded-lg text-xs font-mono font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">MAGIC: 26082511</span>
+                        <span class="text-xs font-mono text-emerald-400 font-bold">100% Win Rate (3/3)</span>
+                    </div>
+                    <h3 class="text-2xl font-black text-white mb-2">Bot A · Alta Frecuencia & Momentum</h3>
+                    <p class="text-sm text-slate-300 mb-6 leading-relaxed">
+                        Especializado en capturar explosiones de volatilidad y rupturas en timeframe H1. Detecta aceleraciones de volumen y toma parciales rápidos a 0.5R.
+                    </p>
+                    <div class="flex items-center justify-between border-t border-quantum-600 pt-4 text-xs font-mono">
+                        <span class="text-slate-400">P&L en Demo: <strong class="text-emerald-400">+$58.30 USD</strong></span>
+                        <span class="text-slate-400">Salida Típica: <strong class="text-cyan-300">TP Parcial + BE</strong></span>
+                    </div>
+                </div>
+
+                <!-- Bot B -->
+                <div class="p-8 rounded-3xl bg-quantum-700/50 border border-indigo-500/30 hover:border-indigo-400 transition-all relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl group-hover:bg-indigo-500/20 transition-all"></div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="px-3 py-1 rounded-lg text-xs font-mono font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">MAGIC: 26082512</span>
+                        <span class="text-xs font-mono text-emerald-400 font-bold">100% Win Rate (2/2)</span>
+                    </div>
+                    <h3 class="text-2xl font-black text-white mb-2">Bot B · Máximo Beneficio Tendencial</h3>
+                    <p class="text-sm text-slate-300 mb-6 leading-relaxed">
+                        El motor de mayor rentabilidad neta. Filtra la estructura macro en H4 y D1 para subirse a tendencias institucionales de gran recorrido con trailing stop dinámico.
+                    </p>
+                    <div class="flex items-center justify-between border-t border-quantum-600 pt-4 text-xs font-mono">
+                        <span class="text-slate-400">P&L en Demo: <strong class="text-emerald-400">+$88.29 USD</strong></span>
+                        <span class="text-slate-400">Salida Típica: <strong class="text-indigo-300">Take Profit Amplio</strong></span>
+                    </div>
+                </div>
+
+                <!-- Bot C -->
+                <div class="p-8 rounded-3xl bg-quantum-700/50 border border-purple-500/30 hover:border-purple-400 transition-all relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-2xl group-hover:bg-purple-500/20 transition-all"></div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="px-3 py-1 rounded-lg text-xs font-mono font-bold bg-purple-500/20 text-purple-300 border border-purple-500/30">MAGIC: 26082513</span>
+                        <span class="text-xs font-mono text-emerald-400 font-bold">100% Win Rate (2/2)</span>
+                    </div>
+                    <h3 class="text-2xl font-black text-white mb-2">Bot C · Sniper SMC & Liquidity Sweeps</h3>
+                    <p class="text-sm text-slate-300 mb-6 leading-relaxed">
+                        Caza las trampas de los market makers. Detecta barridos de máximos/mínimos anteriores (liquidity sweeps) y entra en el retroceso hacia Fair Value Gaps (FVG).
+                    </p>
+                    <div class="flex items-center justify-between border-t border-quantum-600 pt-4 text-xs font-mono">
+                        <span class="text-slate-400">P&L en Demo: <strong class="text-emerald-400">+$16.95 USD</strong></span>
+                        <span class="text-slate-400">Salida Típica: <strong class="text-purple-300">Cosecha de Retroceso</strong></span>
+                    </div>
+                </div>
+
+                <!-- Bot D -->
+                <div class="p-8 rounded-3xl bg-quantum-700/50 border border-amber-500/30 hover:border-amber-400 transition-all relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 rounded-full blur-2xl group-hover:bg-amber-500/20 transition-all"></div>
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="px-3 py-1 rounded-lg text-xs font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">MAGIC: 26082514</span>
+                        <span class="text-xs font-mono text-emerald-400 font-bold">100% Win Rate (2/2)</span>
+                    </div>
+                    <h3 class="text-2xl font-black text-white mb-2">Bot D · Escape Velocity & Estancamiento</h3>
+                    <p class="text-sm text-slate-300 mb-6 leading-relaxed">
+                        Protección de capital avanzada. Si una orden entra en estancamiento y no alcanza su objetivo en un número de velas determinado, el bot liquida la posición en verde para liberar margen.
+                    </p>
+                    <div class="flex items-center justify-between border-t border-quantum-600 pt-4 text-xs font-mono">
+                        <span class="text-slate-400">P&L en Demo: <strong class="text-emerald-400">+$55.47 USD</strong></span>
+                        <span class="text-slate-400">Salida Típica: <strong class="text-amber-300">Cierre por Estancamiento</strong></span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- License Security & Closed Architecture -->
+    <section id="licencia" class="py-20 bg-quantum-900 border-b border-quantum-600/40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="p-8 sm:p-12 rounded-3xl bg-gradient-to-r from-quantum-800 to-quantum-700 border border-emerald-500/30 shadow-2xl relative overflow-hidden">
+                <div class="max-w-3xl">
+                    <span class="text-xs font-mono uppercase tracking-widest text-emerald-400 font-bold bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">Modelo de Entrega Comercial</span>
+                    <h2 class="text-3xl sm:text-4xl font-black text-white mt-4 mb-4">
+                        Distribución por Licencia Cerrada Criptográfica
+                    </h2>
+                    <p class="text-slate-300 text-base leading-relaxed mb-6">
+                        Para salvaguardar la ventaja matemática del sistema y evitar copias no autorizadas, el software se entrega como un <strong class="text-white">ejecutable binario cerrado y optimizado</strong>.
+                    </p>
+                    <ul class="space-y-3 text-sm text-slate-300 font-medium mb-8">
+                        <li class="flex items-center gap-3">
+                            <span class="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xs">✓</span>
+                            <span><strong>Cero código expuesto:</strong> Todo el algoritmo corre compilado de forma nativa en tu máquina sin que tengas que programar ni tocar scripts.</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xs">✓</span>
+                            <span><strong>Bloqueo por Cuenta MT5:</strong> Cada licencia se firma criptográficamente (HMAC-SHA256) vinculada a tu número de cuenta en MetaTrader 5.</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-xs">✓</span>
+                            <span><strong>Instalación Plug & Play:</strong> Solo abres MT5, configuras tu riesgo deseado (1% o 2% por trade) en el archivo <code>config.json</code> y ejecutas el programa.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Tiers Section -->
+    <section id="precios" class="py-24 bg-quantum-800/60 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-mono uppercase tracking-widest text-emerald-400 font-bold bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">Planes de Acceso</span>
+                <h2 class="text-3xl sm:text-5xl font-extrabold text-white mt-4 mb-4 tracking-tight">
+                    Comienza a Operar con Quantum Hoy
+                </h2>
+                <p class="text-slate-400 text-base">
+                    Entrega digital instantánea. Selecciona tu plan y recibe tu clave de activación junto con el ejecutable y el manual de inicio rápido.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                
+                <!-- Plan 1: Trimestral -->
+                <div class="rounded-3xl bg-quantum-700/70 border border-quantum-600/80 p-8 shadow-xl flex flex-col justify-between hover:border-emerald-500/50 transition-all">
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold">Licencia de Prueba</span>
+                            <span class="px-2.5 py-1 text-xs font-bold rounded-full bg-slate-800 text-slate-300 border border-slate-600">Trimestral</span>
+                        </div>
+                        <div class="flex items-baseline gap-2 mb-2">
+                            <span class="text-5xl font-black text-white">$49</span>
+                            <span class="text-slate-400 font-medium text-sm">USD / 3 meses</span>
+                        </div>
+                        <p class="text-xs text-slate-400 mb-6">Ideal para validar la rentabilidad en tu propio broker con bajo costo de entrada.</p>
+                        
+                        <ul class="space-y-3 text-sm text-slate-300 font-medium mb-8">
+                            <li class="flex items-center gap-2">
+                                <span class="text-emerald-400">✓</span>
+                                <span>Ejecutable binario cerrado <strong>Quantum Fleet v2.0</strong></span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-emerald-400">✓</span>
+                                <span>1 Clave de Licencia vinculada a 1 cuenta MT5</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-emerald-400">✓</span>
+                                <span>Los 4 Bots coordinados (A, B, C, D) para XAUUSD</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-emerald-400">✓</span>
+                                <span>Manual de instalación y configuración de riesgo</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-emerald-400">✓</span>
+                                <span>90 días de soporte técnico y actualizaciones</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="space-y-3">
+                        <a href="https://whop.com/checkout/plan_97iP8VjYkIuoi" target="_blank" class="w-full block py-3.5 px-6 rounded-xl bg-emerald-400 hover:bg-emerald-300 text-black font-extrabold text-center transition-all shadow-lg shadow-emerald-500/20 hover:scale-[1.02] active:scale-[0.98]">
+                            Pagar $49 USD con Tarjeta (Whop)
+                        </a>
+                        <a href="#cripto" class="w-full block py-3 px-6 rounded-xl bg-quantum-600 hover:bg-quantum-500 text-slate-200 font-bold text-center text-xs transition-all">
+                            Pagar con Cripto (0.35 SOL / 0.00075 BTC / 0.018 ETH)
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Plan 2: Vitalicia (Lifetime) -->
+                <div class="rounded-3xl bg-gradient-to-b from-quantum-700/90 to-quantum-800/90 border-2 border-emerald-500 p-8 shadow-2xl flex flex-col justify-between relative glow-emerald">
+                    <div class="absolute -top-4 right-8 px-3 py-1 bg-emerald-500 text-black font-extrabold text-xs uppercase tracking-wider rounded-full shadow-md">
+                        Recomendado · Acceso Permanente
+                    </div>
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold">Licencia Enterprise</span>
+                            <span class="px-2.5 py-1 text-xs font-bold rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">Lifetime</span>
+                        </div>
+                        <div class="flex items-baseline gap-2 mb-2">
+                            <span class="text-5xl font-black text-white">$99</span>
+                            <span class="text-slate-400 font-medium text-sm">USD · Pago Único</span>
+                        </div>
+                        <p class="text-xs text-slate-400 mb-6">Sin pagos recurrentes ni mensualidades. Rentabilidad vitalicia en tu control.</p>
+                        
+                        <ul class="space-y-3 text-sm text-slate-300 font-medium mb-8">
+                            <li class="flex items-center gap-2">
+                                <span class="text-emerald-400 font-bold">✓</span>
+                                <span>Ejecutable binario cerrado <strong>Quantum Fleet v2.0 Pro</strong></span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-emerald-400 font-bold">✓</span>
+                                <span><strong>2 Cuentas MT5 simultáneas</strong> (Demo + Real)</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-emerald-400 font-bold">✓</span>
+                                <span>Licencia Vitalicia sin fecha de expiración</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-emerald-400 font-bold">✓</span>
+                                <span>Acceso a las 4 estrategias SMC + Cosecha Inteligente</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-emerald-400 font-bold">✓</span>
+                                <span>Soporte prioritario VIP 1 a 1 de por vida</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="space-y-3">
+                        <a href="https://whop.com/checkout/plan_97iP8VjYkIuoi" target="_blank" class="w-full block py-3.5 px-6 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-300 hover:from-emerald-300 hover:to-teal-200 text-black font-extrabold text-center transition-all shadow-xl shadow-emerald-500/30 hover:scale-[1.02] active:scale-[0.98]">
+                            Pagar $99 USD con Tarjeta (Whop)
+                        </a>
+                        <a href="#cripto" class="w-full block py-3 px-6 rounded-xl bg-quantum-600 hover:bg-quantum-500 text-slate-200 font-bold text-center text-xs transition-all">
+                            Pagar con Cripto (0.70 SOL / 0.0015 BTC / 0.036 ETH)
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Crypto Payment Modal / Section -->
+    <section id="cripto" class="py-16 bg-quantum-900 border-t border-quantum-600/40">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="p-8 rounded-3xl bg-quantum-800/80 border border-quantum-600/80 shadow-xl">
+                <div class="text-center mb-8">
+                    <span class="text-xs font-mono uppercase tracking-widest text-emerald-400 font-bold">0% Comisiones Intermediarias</span>
+                    <h3 class="text-2xl font-bold text-white mt-2">Pagos Directos con Criptomonedas</h3>
+                    <p class="text-xs text-slate-400 mt-1">Transfiere a cualquiera de las billeteras oficiales y contacta a soporte o envía tu TxID para activar tu clave al instante:</p>
+                </div>
+
+                <div class="space-y-4 font-mono text-xs">
+                    <!-- Solana -->
+                    <div class="p-4 rounded-2xl bg-quantum-700/60 border border-quantum-600 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+                        <div>
+                            <span class="text-emerald-400 font-bold block mb-1">⚡ SOLANA (SOL):</span>
+                            <span class="text-slate-300 break-all select-all">2UsQrBLzMt7iraJDGh7VG7WHTuU1mw1LNvhrgCQWBMwK</span>
+                        </div>
+                        <span class="px-2.5 py-1 rounded-lg bg-emerald-500/10 text-emerald-400 font-bold self-end sm:self-auto">0.35 SOL (Trim) / 0.70 SOL (Life)</span>
+                    </div>
+
+                    <!-- Bitcoin -->
+                    <div class="p-4 rounded-2xl bg-quantum-700/60 border border-quantum-600 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+                        <div>
+                            <span class="text-amber-400 font-bold block mb-1">₿ BITCOIN (BTC):</span>
+                            <span class="text-slate-300 break-all select-all">bc1pr8azl8uvce5h8dgs6w5gcmlqth65dln7t6hgkn0dk46e3s0d2twqyaqaw0</span>
+                        </div>
+                        <span class="px-2.5 py-1 rounded-lg bg-amber-500/10 text-amber-400 font-bold self-end sm:self-auto">0.00075 BTC / 0.0015 BTC</span>
+                    </div>
+
+                    <!-- Ethereum -->
+                    <div class="p-4 rounded-2xl bg-quantum-700/60 border border-quantum-600 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+                        <div>
+                            <span class="text-purple-400 font-bold block mb-1">⟠ ETHEREUM / EVM (ETH):</span>
+                            <span class="text-slate-300 break-all select-all">0x24f736916c40ee6dca3d528828cbfc45b8ca7520</span>
+                        </div>
+                        <span class="px-2.5 py-1 rounded-lg bg-purple-500/10 text-purple-400 font-bold self-end sm:self-auto">0.018 ETH / 0.036 ETH</span>
+                    </div>
+                </div>
+
+                <div class="mt-6 text-center text-xs text-slate-400">
+                    <p>Tras enviar tu pago cripto, comunícate en Telegram con <a href="https://t.me/sol2000_bot" target="_blank" class="text-emerald-400 font-bold hover:underline">@sol2000_bot</a> o envía el TxID para recibir tu binario y clave de licencia al instante.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Risk Disclaimer -->
+    <footer class="py-12 bg-quantum-900 border-t border-quantum-600/40 text-center text-xs text-slate-500">
+        <div class="max-w-5xl mx-auto px-4 space-y-4">
+            <p class="font-bold text-slate-400 uppercase tracking-wider">Aviso Regulatorio y Descargo de Responsabilidad (DYOR)</p>
+            <p class="leading-relaxed">
+                El trading de divisas (Forex), materias primas y metales preciosos (XAUUSD) con apalancamiento conlleva un alto nivel de riesgo para su capital y puede no ser adecuado para todos los inversores. Los rendimientos pasados, resultados de backtest o pruebas en cuentas demo no garantizan ganancias futuras. Quantum Trading System es un software de asistencia y automatización analítica. Cada usuario asume la total responsabilidad por la gestión del riesgo y las operaciones ejecutadas en su cuenta de corretaje.
+            </p>
+            <p>© 2026 Quantum Trading System. Todos los derechos reservados. Arquitectura de cliente cerrado protegida.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
