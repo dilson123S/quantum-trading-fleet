@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "rewrites": [
+    { "source": "/admin", "destination": "/api/index.py?route=/admin" },
+    { "source": "/admin.html", "destination": "/api/index.py?route=/admin" },
+    { "source": "/api/admin/login", "destination": "/api/index.py?route=/api/admin/login" },
+    { "source": "/api/admin/data", "destination": "/api/index.py?route=/api/admin/data" },
+    { "source": "/api/admin/generate-license", "destination": "/api/index.py?route=/api/admin/generate-license" },
+    { "source": "/api/admin/clear-data", "destination": "/api/index.py?route=/api/admin/clear-data" },
+    { "source": "/api/(.*)", "destination": "/api/index.py?route=/api/$1" }
+  ]
+}
