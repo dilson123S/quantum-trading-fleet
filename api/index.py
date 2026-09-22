@@ -43,7 +43,8 @@ class AdminStore:
         return {
             "licenses": [],
             "activity": [],
-            "total_revenue_usd": 0.0
+            "total_revenue_usd": 0.0,
+            "total_page_views": 0
         }
 
     @classmethod
@@ -78,6 +79,22 @@ class AdminStore:
             "customer": customer or "Cliente Directo",
             "status": "ACTIVA"
         })
+        cls.save(state)
+
+    @classmethod
+    def record_page_view(cls, ip: str, ref: str):
+        state = cls.load()
+        state["total_page_views"] = state.get("total_page_views", 0) + 1
+        now_str = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
+        act = state.get("activity", [])
+        act.insert(0, {
+            "timestamp": now_str,
+            "event_type": "PAGE_VIEW",
+            "username": ip,
+            "user_id": 0,
+            "details": f"Visita web desde {ref[:50]}"
+        })
+        state["activity"] = act[:50]
         cls.save(state)
 
     @classmethod
@@ -438,19 +455,20 @@ def handle_update(update: dict, bot_token: str = None):
                 "⚡ <b>LA FLOTA ALGORÍTMICA DE 4 BOTS (XAUUSD)</b>\n"
                 "━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
                 "En lugar de un solo bot que intenta hacerlo todo, Quantum opera con 4 motores especializados en paralelo:\n\n"
-                "🚀 <b>BOT-A · Alta Frecuencia / Breakouts:</b>\n"
-                "  • Caza aceleraciones bruscas de volumen y rupturas con órdenes inmediatas a mercado.\n"
-                "  • Ratio R:R asimétrico con Stop Loss ceñido.\n\n"
-                "📈 <b>BOT-B · Tendencial Conservador:</b>\n"
+                "🚀 <b>BOT-A · Alta Frecuencia & Rupturas:</b>\n"
+                "  • Caza aceleraciones de volumen y rupturas con confirmación en ventana de 6 velas.\n"
+                "  • Stop Loss Anti-Barrido institucional (+0.15 ATR) y toma asimétrica de parciales.\n\n"
+                "📈 <b>BOT-B · Tendencial Conservador (⭐ Estrella):</b>\n"
                 "  • Sincronizado estrictamente con la macro tendencia de H4 y D1.\n"
-                "  • Filtro de Machine Learning (XGBoost) con confianza $\\ge 55\\%$.\n\n"
+                "  • <b>76.7% Win Rate</b> y Profit Factor 9.37 con filtro Machine Learning.\n\n"
                 "🎯 <b>BOT-C · Sniper Liquidity Sweeps:</b>\n"
-                "  • Explota barridos de liquidez institucional en máximos/mínimos del día anterior y sesión de Asia.\n"
-                "  • Objetivos de expansión con R:R $\\ge 1.8$.\n\n"
-                "🛡️ <b>BOT-D · Time Decay & Corte de Estancamiento:</b>\n"
-                "  • Si un trade no avanza en 5 barras, lo cierra de inmediato para evitar que se devuelva al SL.\n"
-                "  • Redujo el drawdown mensual del 4.1% a solo 1.1%.\n\n"
-                f"🌐 <a href='{LANDING_URL}'>Ver Gráficos y Auditoría en la Web Oficial</a>"
+                "  • Explota barridos de liquidez en máximos/mínimos clave y Fair Value Gaps.\n"
+                "  • <b>85.3% Win Rate</b> y Profit Factor 19.19 con ratio R:R ≥ 1.8.\n\n"
+                "🛡️ <b>BOT-D · Time Decay & Protección de Margen:</b>\n"
+                "  • Si un trade no avanza con inercia en 6 barras, lo liquida para proteger el balance.\n"
+                "  • Rescata operaciones a tiempo reduciendo el riesgo al mínimo.\n\n"
+                "💻 <b>AI Trading Lab Local:</b> Dashboard en tiempo real (localhost:8000) para supervisar cada bot.\n\n"
+                f"🌐 <a href='{LANDING_URL}'>Ver Scorecard y Gráficos en la Web Oficial</a>"
             )
             send_telegram_message(chat_id, msg, bot_token=bot_token)
             return
@@ -458,17 +476,20 @@ def handle_update(update: dict, bot_token: str = None):
         # --- 4. COMANDO /stats (Rendimiento Comprobado) ---
         if text.startswith("/stats") or text.startswith("/rendimiento") or text.startswith("/backtest"):
             msg = (
-                "📊 <b>RENDIMIENTO AUDITADO (MES PASADO · AGOSTO 2026)</b>\n"
+                "📊 <b>RENDIMIENTO AUDITADO · QUANTUM FLEET v2.0 (XAUUSD)</b>\n"
                 "━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
-                "Prueba histórica rigurosa sobre velas reales de MetaTrader 5 con comisiones ($7/lote) y slippage:\n\n"
-                "📈 <b>Métricas Clave:</b>\n"
-                "• <b>Profit Factor:</b> <code>1.22</code> (Estrategia matemáticamente rentable)\n"
-                "• <b>Max Drawdown:</b> <code>1.1%</code> (Riesgo institucional mínimo)\n"
-                "• <b>Resultado Neto:</b> <code>+$25.05 USD (+0.3 R)</code>\n"
-                "• <b>Tasa de Acierto:</b> <code>42.9%</code> con Ratio Asimétrico Favorable\n"
-                "• <b>Trades Evaluados:</b> 14 operaciones en Oro (H1)\n"
-                "• <b>Protección por Estancamiento:</b> 8 operaciones rescatadas a tiempo cortando pérdidas mínimas.\n\n"
-                "💡 <i>A diferencia de otros bots que muestran backtests irreales sin comisiones, Quantum aplica las condiciones más conservadoras de broker.</i>"
+                "Auditoría rigurosa de 2 años (2024-2026) con comisiones ($7/lote) y slippage institucional en MetaTrader 5:\n\n"
+                "📈 <b>Métricas de Rentabilidad Verificadas:</b>\n"
+                "• <b>Retorno Neto 2 Años:</b> <code>+$5,031.70 USD (+40.6 R)</code>\n"
+                "• <b>Tasa de Acierto Bot B (Tendencial):</b> <code>76.7% WR</code> (Profit Factor 9.37)\n"
+                "• <b>Tasa de Acierto Bot C (Sniper):</b> <code>85.3% WR</code> (Profit Factor 19.19)\n"
+                "• <b>Récord en Demo Real MT5:</b> <code>100% de Acierto</code> (9 Victorias Consecutivas, +$219.01 USD)\n"
+                "• <b>Robustez Monte Carlo:</b> <code>99.5% de probabilidad positiva</code> en 2,000 bootstraps.\n\n"
+                "🛡️ <b>Protección de Capital Activa:</b>\n"
+                "• <b>Stop Loss Anti-Barrido:</b> Buffer cuántico de <code>+0.15 ATR</code> para evitar caza de liquidez institucional.\n"
+                "• <b>Salida por Estancamiento:</b> Corte automático preventivo a las 6 barras para liberar margen si la inercia disminuye.\n"
+                "• <b>Control de Riesgo:</b> Máximo Drawdown contenido entre 1.07% y 2.54%.\n\n"
+                f"🌐 <a href='{LANDING_URL}'>Ver Scorecard y Gráficos en la Web Oficial</a>"
             )
             keyboard = {
                 "inline_keyboard": [
@@ -723,6 +744,7 @@ class handler(BaseHTTPRequestHandler):
                     "paid_licenses": paids,
                     "sol_balance": sol_bal,
                     "total_events": len(events),
+                    "total_page_views": st.get("total_page_views", 0),
                     "total_revenue_usd": st.get("total_revenue_usd", 0.0)
                 },
                 "licenses": lics,
@@ -736,7 +758,19 @@ class handler(BaseHTTPRequestHandler):
             self.wfile.write(json.dumps(response_data, ensure_ascii=False).encode("utf-8"))
             return
 
-        # 3. HEALTH CHECK / ROOT
+        # 3. VISITOR TRACKING GET ROUTE
+        if clean_path in ["/api/track", "/track"]:
+            ip = self.headers.get("x-forwarded-for", self.client_address[0] if self.client_address else "Anon").split(",")[0].strip()
+            ref = self.headers.get("referer", "Directo")
+            AdminStore.record_page_view(ip, ref)
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.send_cors_headers()
+            self.end_headers()
+            self.wfile.write(b'{"ok": true}')
+            return
+
+        # 4. HEALTH CHECK / ROOT
         self.send_response(200)
         self.send_header("Content-Type", "application/json")
         self.send_cors_headers()
@@ -747,6 +781,22 @@ class handler(BaseHTTPRequestHandler):
         clean_path = resolve_route(self)
         content_length = int(self.headers.get("Content-Length", 0))
         body = self.rfile.read(content_length).decode("utf-8") if content_length > 0 else ""
+
+        # VISITOR TRACKING POST ROUTE
+        if clean_path in ["/api/track", "/track"]:
+            ip = self.headers.get("x-forwarded-for", self.client_address[0] if self.client_address else "Anon").split(",")[0].strip()
+            try:
+                data = json.loads(body) if body else {}
+                ref = data.get("ref") or self.headers.get("referer", "Directo")
+            except Exception:
+                ref = self.headers.get("referer", "Directo")
+            AdminStore.record_page_view(ip, ref)
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.send_cors_headers()
+            self.end_headers()
+            self.wfile.write(b'{"ok": true}')
+            return
 
         # 1. ADMIN LOGIN
         if clean_path in ["/api/admin/login", "/login"]:

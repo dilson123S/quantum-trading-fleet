@@ -721,6 +721,16 @@
                     <div id="kpiGoalSub" class="kpi-sub">Objetivo: $200.00 USD (0%)</div>
                 </div>
 
+                <!-- Card 5: Visitas a la Web -->
+                <div class="kpi-card">
+                    <div class="kpi-header">
+                        <span class="kpi-label">Visitas a la Web</span>
+                        <div class="kpi-icon" style="background: rgba(16,185,129,0.15); color: var(--accent-emerald);">🌐</div>
+                    </div>
+                    <div id="kpiTotalViews" class="kpi-val">0</div>
+                    <div class="kpi-sub">Tráfico en Vivo Landing Page</div>
+                </div>
+
             </div>
 
             <!-- Tab Buttons -->
@@ -951,6 +961,9 @@
             document.getElementById('kpiLicensesSub').textContent = `${s.trial_licenses || 0} Pruebas · ${s.paid_licenses || 0} Pagas`;
             document.getElementById('kpiSolBalance').textContent = `${(s.sol_balance || 0).toFixed(4)} SOL`;
             document.getElementById('kpiTotalEvents').textContent = s.total_events || 0;
+            if (document.getElementById('kpiTotalViews')) {
+                document.getElementById('kpiTotalViews').textContent = s.total_page_views || 0;
+            }
             
             const rev = s.total_revenue_usd || 0;
             document.getElementById('kpiRevenue').textContent = `$${rev.toFixed(2)} USD`;
